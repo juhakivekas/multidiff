@@ -1,0 +1,6 @@
+foobar
+fooba[44m[37mg[0m
+[44m[37mgee[0mbar
+foo[42m[37mx[0mbar
+f[41m[37m[0mobar
+[41m[37m[0m
