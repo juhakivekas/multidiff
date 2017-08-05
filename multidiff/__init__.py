@@ -14,4 +14,4 @@
 """
 
 from .multidiffmodel import MultidiffModel
-from .ansiview import AnsiView
+from .render import Render

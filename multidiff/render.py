@@ -2,7 +2,7 @@ import binascii
 import termcolor
 import html
 
-class AnsiView():
+class Render():
 	def __init__(self):
 		pass
 
