@@ -3,13 +3,15 @@ import termcolor
 import html
 
 class Render():
-	def __init__(self):
+	def __init__(self, outformat='ansi', outencode='utf8'):
+		self.outformat = outformat
+		self.outencode = outencode
 		pass
 
-	def dump(self, model, reference=0, printmode='utf8'):
-		print(self.dumps(model, reference=reference, printmode = printmode), end='')
+	def dump(self, model, reference=0):
+		print(self.dumps(model, reference=reference), end='')
 
-	def dumps(self, model, reference=0, printmode='utf8'):
+	def dumps(self, model, reference=0):
 		#print a reference object
 		#string = model.objects[reference]
 		#if printmode == 'hex':
@@ -22,12 +24,14 @@ class Render():
 		for diff in model.diffs:
 			obj = model.objects[diff.target]
 			for op in diff.opcodes:
-				
 				string = obj[op[3]:op[4]]
-				if printmode == 'hex':
+				if self.outencode == 'hex':
 					string = str(binascii.hexlify(bytes(string,"utf8")),'utf8')
 				
-				dump += self.ansi_colored(string, op[0])
+				if   self.outformat == 'ansi':
+					dump += self.ansi_colored(string, op[0])
+				elif self.outformat == 'html':
+					dump += self.html_colored(string, op[0])
 			dump += "\n"
 		return dump
 
