@@ -11,11 +11,12 @@ def test_sequence_html_dump():
 	assert False
 """
 
-def test_baseline_html_dump():
+def test_baseline_html_utf_dump():
 	objs = open("test/minimal.txt").read(-1).split('\n')[:-1]
+	objs = [bytes(x, 'utf8') for x in objs]
 	m = MultidiffModel(objs)
 	m.diff_baseline()
-	res = Render(outformat='html').dumps(m)
+	res = Render(view='utf8', outformat='html').dumps(m)
 	print(res)
 	base = open("test/minimal_res.html").read(-1)
 	assert res == base

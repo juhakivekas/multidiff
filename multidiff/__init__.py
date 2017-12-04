@@ -14,4 +14,5 @@
 """
 
 from .multidiffmodel import MultidiffModel
-from .render import Render
+from .render import Render, HexdumpView
+from .baselineview import BaselineView

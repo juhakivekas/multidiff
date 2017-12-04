@@ -1,0 +1,15 @@
+* {
+	font-family: monospace;
+}
+
+.insert {
+	background: yellowgreen
+}
+
+.delete {
+	background: red;
+}
+
+.replace {
+	background: teal
+}
