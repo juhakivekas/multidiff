@@ -81,14 +81,18 @@ class HexdumpView():
 			data = data[consumed:]
 
 	def _append(self, data, color):
-		self.hexrow += self.highligther(str(binascii.hexlify(data), 'utf8'), color)
-		asci = ''
+		hexs = str(binascii.hexlify(data), 'utf8')
+		#add some space between hex
+		hexs = ' '.join([hexs[i:i+2] for i in range(0, len(hexs), 2)]) + ' '
+		asciis = ''
+		#make the ascii dump
 		for byte in data:
 			if 0x20 <= byte <= 0x7E:
-				asci += chr(byte)
+				asciis += chr(byte)
 			else:
-				asci += '.'
-		self.asciirow += self.highligther(asci, color)
+				asciis += '.'
+		self.hexrow   += self.highligther(hexs, color)
+		self.asciirow += self.highligther(asciis, color)
 		self.rowlen += len(data)
 		return len(data)
 
@@ -103,7 +107,7 @@ class HexdumpView():
 		self.asciirow = ''
 
 	def final(self):
-		self.hexrow += 2*(16 - self.rowlen) * ' '
+		self.hexrow += 3*(16 - self.rowlen) * ' '
 		self.asciirow += (16 - self.rowlen) * ' '
 		self._newrow()
 		return self.body
