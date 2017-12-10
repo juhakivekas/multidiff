@@ -3,36 +3,31 @@ import termcolor
 import html
 
 class Render():
+	'''Configure the output format of this rendering object'''
 	def __init__(self, view='hexdump', outformat='ansi'):
-		self.view = view 
-		self.outformat = outformat
-		pass
+		if   outformat == 'ansi':
+			self.highligther = ansi_colored
+		elif outformat == 'html':
+			self.highligther = html_colored
 
-	def dump(model, self, reference=0):
-		print(self.dumps(reference=reference), end='')
-
-	def render(self, model, diff):
-		if   self.outformat == 'ansi':
-			highligther = ansi_colored
-		elif self.outformat == 'html':
-			highligther = html_colored
-
-		if self.view == 'hexdump':
-			result = HexdumpView(highligther)
-		elif self.view == 'hex':
-			result = HexView(highligther)
-		elif self.view == 'utf8':
-			result = Utf8View(highligther)
+		if   view == 'hexdump':
+			self.view = HexdumpView
+		elif view == 'hex':
+			self.view = HexView
+		elif view == 'utf8':
+			self.view = Utf8View
 		
+	'''Render the diff in the given model into a UTF-8 String'''
+	def render(self, model, diff):
+		result = self.view(self.highligther)
 		obj = model.objects[diff.target]
 		for op in diff.opcodes:
 			data = obj.data[op[3]:op[4]]
 			result.append(data, op[0])
 		return result.final()
 
+	'''Dump all diffs in a model. Mostly good for debugging'''
 	def dumps(self, model):
-		#XXX this assumes that the diffs are somehow cleverly created
-		#eg. a sequece or baseline diff, since the source is not rendered
 		dump = ""
 		for diff in model.diffs:
 			dump += self.render(model, diff) + '\n'
@@ -136,12 +131,13 @@ def ansi_colored(string, op):
 	if   op == 'equal':
 		return string
 	elif op == 'replace':
-		bgcolor = 'on_blue'
+		color = 'blue'
 	elif op == 'insert':
-		bgcolor = 'on_green'
+		color = 'green'
 	elif op == 'delete':
-		bgcolor = 'on_red'
-	return termcolor.colored(string, 'white', bgcolor)
+		color = 'red'
+	return termcolor.colored(string, 'white', 'on_{}'.format(color))
+	#return termcolor.colored(string, color, None)
 
 def html_colored(string, op):
 	if   op == 'equal':
