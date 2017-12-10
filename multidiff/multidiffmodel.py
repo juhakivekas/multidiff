@@ -17,9 +17,9 @@ class MultidiffModel():
 
 	"""Create a MultiDiffModel for a set of objects"""
 	def __init__(self, datas = []):
+		self.listeners = []
 		self.clear()
 		self.add_all(datas)
-		self.listeners = []
 
 	"""Adds an object that listens to events. Views add themselves."""
 	def add_listener(self, listener):
