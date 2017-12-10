@@ -3,23 +3,23 @@ import termcolor
 import html
 
 class Render():
-	'''Configure the output format of this rendering object'''
-	def __init__(self, view='hexdump', outformat='ansi'):
-		if   outformat == 'ansi':
+	'''Configure the output encoding and coloring method of this rendering object'''
+	def __init__(self, encode='hexdump', color='ansi'):
+		if   color == 'ansi':
 			self.highligther = ansi_colored
-		elif outformat == 'html':
+		elif color == 'html':
 			self.highligther = html_colored
 
-		if   view == 'hexdump':
-			self.view = HexdumpView
-		elif view == 'hex':
-			self.view = HexView
-		elif view == 'utf8':
-			self.view = Utf8View
-		
+		if   encode == 'hexdump':
+			self.encoder = HexdumpEncoder
+		elif encode == 'hex':
+			self.encoder = HexEncoder
+		elif encode == 'utf8':
+			self.encoder = Utf8Encoder
+			
 	'''Render the diff in the given model into a UTF-8 String'''
 	def render(self, model, diff):
-		result = self.view(self.highligther)
+		result = self.encoder(self.highligther)
 		obj = model.objects[diff.target]
 		for op in diff.opcodes:
 			data = obj.data[op[3]:op[4]]
@@ -33,8 +33,8 @@ class Render():
 			dump += self.render(model, diff) + '\n'
 		return dump
 
-'''A string (utf8) view of the data'''
-class Utf8View():
+'''A string (utf8) encoder for the data'''
+class Utf8Encoder():
 	def __init__(self, highligther):
 		self.highligther = highligther
 		self.output = ''
@@ -45,12 +45,11 @@ class Utf8View():
 	def final(self):
 		return self.output
 
-'''A hex view of the data'''
-class HexView():
+'''A hex encoder for the data'''
+class HexEncoder():
 	def __init__(self, highligther):
 		self.highligther = highligther
 		self.output = ''
-
 	def append(self, data, color):
 		data = str(binascii.hexlify(data),'utf8')
 		self.output += self.highligther(data, color)
@@ -58,8 +57,8 @@ class HexView():
 	def final(self):
 		return self.output
 
-'''A hexdump view of the data'''
-class HexdumpView():
+'''A hexdump encoder for the data'''
+class HexdumpEncoder():
 	def __init__(self, highligther):
 		self.highligther = highligther
 		self.body = ''

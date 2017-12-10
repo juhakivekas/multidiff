@@ -19,10 +19,18 @@ class MultidiffModel():
 	def __init__(self, datas = []):
 		self.clear()
 		self.add_all(datas)
+		self.listeners = []
+
+	"""Adds an object that listens to events. Views add themselves."""
+	def add_listener(self, listener):
+		self.listeners.append(listener)
 
 	"""Add a single data object to the model"""
 	def add(self, data, name=''):
-		self.objects.append(DiffObject(data, name=name))
+		obj = DiffObject(data, name=name)
+		self.objects.append(obj)
+		for listener in self.listeners:
+			listener.object_added(len(self.objects) - 1)
 
 	"""Add a list of byte datas"""
 	def add_all(self, datas, name=''):
@@ -48,10 +56,14 @@ class MultidiffModel():
 			if i is baseline:
 				pass
 			self.diff(baseline, i)
+
 	"""Diff two objects of the model and store the result"""
 	def diff(self, source, target):
 		sm = difflib.SequenceMatcher()
 		sm.set_seqs(self.objects[source].data, self.objects[target].data)
-		self.diffs += [Diff(source, target, sm.get_opcodes())]
+		diff = Diff(source, target, sm.get_opcodes())
+		self.diffs.append(diff)
+		for listener in self.listeners:
+			listener.diff_added(diff)
 		return self.diffs[-1]
 
