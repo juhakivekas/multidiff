@@ -1,4 +1,5 @@
 from multidiff.render import *
+from multidiff import Ansi
 
 def mono(string, color):
 	return string
@@ -14,7 +15,8 @@ def test_multiple_line_mono():
 	hd = HexdumpEncoder(mono)
 	hd.append(bytes("0123456789abcdef012345678", "utf8"), "mono")
 	result = hd.final()
-	dump='000000: 30 31 32 33 34 35 36 37 38 39 61 62 63 64 65 66 |0123456789abcdef|\n000010: 30 31 32 33 34 35 36 37 38                      |012345678       |'
+	dump = '000000: 30 31 32 33 34 35 36 37 38 39 61 62 63 64 65 66 |0123456789abcdef|\n'
+	dump+= '000010: 30 31 32 33 34 35 36 37 38                      |012345678       |'
 	assert(result == dump)
 
 def test_single_line_insert():
@@ -22,7 +24,11 @@ def test_single_line_insert():
 	hd.append(bytes("foobar", "utf8"), "insert")
 	result = hd.final()
 	print(result)
-	dump = '000000: \x1b[42m\x1b[37m66 6f 6f 62 61 72\x1b[0m                               |\x1b[42m\x1b[37mfoobar\x1b[0m          |'
+	dump = '000000: '
+	dump+= Ansi.white + Ansi.on_green + '66 6f 6f 62 61 72' + Ansi.reset
+	dump+= '                               |'
+	dump+= Ansi.white + Ansi.on_green + 'foobar' + Ansi.reset
+	dump+= '          |'
 	assert(result == dump)
 
 def test_multiple_line_insert():
@@ -32,13 +38,13 @@ def test_multiple_line_insert():
 	result = hd.final()
 	#jesus!
 	dump = '000000: 30 31 32 33 34 35 36 37 38 61 '
-	dump += '\x1b[44m\x1b[37m30 31 32 33 34 35\x1b[0m'
+	dump += Ansi.white + Ansi.on_blue + '30 31 32 33 34 35' + Ansi.reset
 	dump += ' |012345678a'
-	dump += '\x1b[44m\x1b[37m012345\x1b[0m'
+	dump += Ansi.white + Ansi.on_blue + '012345' + Ansi.reset
 	dump += '|\n000010: '
-	dump += '\x1b[44m\x1b[37m36 37 38 61\x1b[0m'
+	dump += Ansi.white + Ansi.on_blue + '36 37 38 61' + Ansi.reset
 	dump += '                                     |'
-	dump += '\x1b[44m\x1b[37m678a\x1b[0m'
+	dump += Ansi.white + Ansi.on_blue + '678a' + Ansi.reset
 	dump += '            |'
 	assert(result == dump)
 
@@ -49,9 +55,9 @@ def test_empty_data_insert():
 	result = hd.final()
 	print(result)
 	dump = '000000: '
-	dump += '\x1b[44m\x1b[37m41\x1b[0m'
-	dump += '\x1b[41m\x1b[37m \x1b[0m'
+	dump += Ansi.white + Ansi.on_blue + '41' + Ansi.reset
+	dump += Ansi.white + Ansi.on_red + ' ' + Ansi.reset
 	dump += '                                             |'
-	dump += '\x1b[44m\x1b[37mA\x1b[0m'
+	dump += Ansi.white + Ansi.on_blue + 'A' + Ansi.reset
 	dump += '               |'
 	assert(result == dump)

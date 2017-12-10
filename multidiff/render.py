@@ -1,5 +1,5 @@
+from multidiff.Ansi import Ansi
 import binascii
-import termcolor
 import html
 
 class Render():
@@ -130,12 +130,12 @@ def ansi_colored(string, op):
 	if   op == 'equal':
 		return string
 	elif op == 'replace':
-		color = 'blue'
+		color = Ansi.on_blue
 	elif op == 'insert':
-		color = 'green'
+		color = Ansi.on_green
 	elif op == 'delete':
-		color = 'red'
-	return termcolor.colored(string, 'white', 'on_{}'.format(color))
+		color = Ansi.on_red
+	return Ansi.white + color + string + Ansi.reset
 	#return termcolor.colored(string, color, None)
 
 def html_colored(string, op):
