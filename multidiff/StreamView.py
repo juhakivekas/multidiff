@@ -14,3 +14,6 @@ class StreamView():
 	def diff_added(self, diff):
 		print(self.model.objects[diff.target].name)
 		print(self.render.render(self.model, diff))
+		#clean up model to not leak memory in long runs
+		del(self.model.diffs[0])
+		del(self.model.objects[0])

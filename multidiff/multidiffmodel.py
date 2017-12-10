@@ -65,5 +65,3 @@ class MultidiffModel():
 		self.diffs.append(diff)
 		for listener in self.listeners:
 			listener.diff_added(diff)
-		return self.diffs[-1]
-
