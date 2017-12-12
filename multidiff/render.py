@@ -23,7 +23,10 @@ class Render():
 		obj = model.objects[diff.target]
 		for op in diff.opcodes:
 			data = obj.data[op[3]:op[4]]
-			result.append(data, op[0])
+			if type(data) == bytes:
+				result.append(data, op[0])
+			elif type(data) == str:
+				result.append(bytes(data, "utf8"), op[0])
 		return result.final()
 
 	'''Dump all diffs in a model. Mostly good for debugging'''

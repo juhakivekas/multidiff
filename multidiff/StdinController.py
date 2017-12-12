@@ -1,17 +1,20 @@
 import sys
 import binascii
+import re
 
 class StdinController:
 	def __init__(self, model, informat):
-		self.model = model
-		self.informat = informat
 		if informat not in ['utf8', 'hex']:
 			raise NotImplementedError('"{}" is not a valid input format for this controller'.format(informat))
+		self.informat = informat
+		self.model = model
+		self.spaceregex = re.compile(r'\s+')
 			
 	def read_lines(self):
 		for num, line in enumerate(sys.stdin):
 			if   self.informat == 'utf8':
-				data = bytes(line[:-1], 'utf8')
+				data = line[:-1]
 			elif self.informat == 'hex':
-				data = binascii.unhexlify(line[:-1])
+				hexs = re.sub(self.spaceregex, '', line)
+				data = binascii.unhexlify(hexs)
 			self.model.add(data, name='{}'.format(num))
