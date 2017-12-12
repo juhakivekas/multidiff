@@ -1,6 +1,6 @@
-#!/usr/bin/python3
+#!/usr/local/homebrew/bin//python3
 import argparse
-from multidiff import MultidiffModel, StreamView, SocketController, FileController
+from multidiff import MultidiffModel, StreamView, SocketController, FileController, StdinController
 
 parser = argparse.ArgumentParser(
 	formatter_class=argparse.RawDescriptionHelpFormatter,
@@ -35,12 +35,21 @@ parser.add_argument('-p','--port',
 	type=int,
 	help='start a local socket server on a port')
 
+parser.add_argument('-s','--stdin',
+	dest='stdin',
+	type=str,
+	help='read data from stdin, optionally support format "hex" or "line"')
+
 if __name__ == '__main__':
 	args = parser.parse_args()
 	m = MultidiffModel()
 	v = StreamView(m, encoding=args.encode)
-	f = FileController(m)
-	f.add_paths(args.file)
+	if len(args.file) > 0:
+		f = FileController(m)
+		f.add_paths(args.file)
+	if args.stdin:
+		stdin = StdinController(m, args.stdin)
+		stdin.read_lines()
 	if args.port != 0:
-		s = SocketController(('127.0.0.1', args.port), m)
-		s.serve_forever()
+		server = SocketController(('127.0.0.1', args.port), m)
+		server.serve_forever()

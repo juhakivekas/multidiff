@@ -4,17 +4,17 @@ import html
 
 class Render():
 	'''Configure the output encoding and coloring method of this rendering object'''
-	def __init__(self, encode='hexdump', color='ansi'):
+	def __init__(self, encoder='hexdump', color='ansi'):
 		if   color == 'ansi':
 			self.highligther = ansi_colored
 		elif color == 'html':
 			self.highligther = html_colored
 
-		if   encode == 'hexdump':
+		if   encoder == 'hexdump':
 			self.encoder = HexdumpEncoder
-		elif encode == 'hex':
+		elif encoder == 'hex':
 			self.encoder = HexEncoder
-		elif encode == 'utf8':
+		elif encoder == 'utf8':
 			self.encoder = Utf8Encoder
 			
 	'''Render the diff in the given model into a UTF-8 String'''

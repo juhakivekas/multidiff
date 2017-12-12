@@ -2,7 +2,7 @@ from multidiff import Render, Ansi
 
 class StreamView():
 	def __init__(self, model, encoding='hexdump'):
-		self.render = Render(color='ansi', encode=encoding)
+		self.render = Render(color='ansi', encoder=encoding)
 		self.model = model
 		model.add_listener(self)
 
@@ -11,7 +11,8 @@ class StreamView():
 			self.model.diff(index - 1, index)
 
 	def diff_added(self, diff):
-		print(Ansi.bold + self.model.objects[diff.target].name + Ansi.reset)
+		if  self.model.objects[diff.target].name != '':
+			print(Ansi.bold + self.model.objects[diff.target].name + Ansi.reset)
 		print(self.render.render(self.model, diff))
 		#clean up model to not leak memory in long runs
 		del(self.model.diffs[0])
