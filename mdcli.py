@@ -52,20 +52,14 @@ if __name__ == '__main__':
 	v = StreamView(m, encoding=args.outformat)
 	
 	if len(args.file) > 0:
-		if not args.informat:
-			f = FileController(m, 'raw')
-		else:
-			f = FileController(m, args.informat)
-		f.add_paths(args.file)
+		informat = args.informat if args.informat else 'raw'
+		files = FileController(m, informat)
+		files.add_paths(args.file)
 	if args.stdin:
-		if not args.informat:
-			stdin = StdinController(m, 'utf8')
-		else:
-			stdin = StdinController(m, args.informat)
+		informat = args.informat if args.informat else 'utf8'
+		stdin = StdinController(m, informat)
 		stdin.read_lines()
 	if args.port != 0:
-		if not args.informat:
-			server = SocketController(('127.0.0.1', args.port), m, 'json')
-		else:
-			server = SocketController(('127.0.0.1', args.port), m, args.informat)
+		informat = args.informat if args.informat else 'json'
+		server = SocketController(('127.0.0.1', args.port), m, informat)
 		server.serve_forever()
