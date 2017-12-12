@@ -1,7 +1,9 @@
 import os
 
 class FileController:
-	def __init__(self, model):
+	def __init__(self, model, informat):
+		if informat not in ['raw']:
+			raise NotImplementedError('"{}" is not a valid input format for this controller'.format(informat))
 		self.model = model
 
 	def add_paths(self, paths):

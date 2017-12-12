@@ -5,7 +5,7 @@ var Base64 = Java.type("java.util.Base64")
  * Select websocket channels to be included based on the handshake message
  */
 function channelSelector(handshakeReference){
-	return handshakeReference.getURI().getHost().matches('.*pusherapp.*')
+	return handshakeReference.getURI().getHost().matches('.*firebase.*')
 }
 /**
  * Filter out interesting messages or to weed out junk
