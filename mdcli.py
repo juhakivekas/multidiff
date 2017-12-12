@@ -27,12 +27,10 @@ parser.add_argument('-m', '--mode',
 parser.add_argument('-o','--outformat',
 	dest='outformat',
 	default='hexdump',
-	type=str,
 	help='output data format: utf8, hex, or hexdump (default)')
 
 parser.add_argument('-i','--informat',
 	dest='informat',
-	type=str,
 	help='input data format: utf8 (stdin default), raw (file default), hex, or json (server default)')
 
 parser.add_argument('-s','--stdin',
@@ -42,7 +40,6 @@ parser.add_argument('-s','--stdin',
 
 parser.add_argument('-p','--port',
 	dest='port',
-	default=0,
 	type=int,
 	help='start a local socket server on a given port')
 
@@ -59,7 +56,7 @@ if __name__ == '__main__':
 		informat = args.informat if args.informat else 'utf8'
 		stdin = StdinController(m, informat)
 		stdin.read_lines()
-	if args.port != 0:
+	if args.port:
 		informat = args.informat if args.informat else 'json'
 		server = SocketController(('127.0.0.1', args.port), m, informat)
 		server.serve_forever()
