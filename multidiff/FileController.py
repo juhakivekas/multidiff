@@ -27,6 +27,6 @@ class FileController:
 				hexs = open(path, 'r').read(-1)
 				hexs = re.sub(self.spaceregex, '', hexs)
 				data = binascii.unhexlify(hexs)
-			self.model.add(data, name=path)
+			self.model.add(data, info=path)
 		else:
 			raise NotImplementedError("A path was given that is neither a file nor a directory {}".format(path))

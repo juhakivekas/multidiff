@@ -17,4 +17,4 @@ class StdinController:
 			elif self.informat == 'hex':
 				hexs = re.sub(self.spaceregex, '', line)
 				data = binascii.unhexlify(hexs)
-			self.model.add(data, name='{}'.format(num))
+			self.model.add(data, info='{}'.format(num))

@@ -8,9 +8,41 @@ augmentations inc
 └───────────────┘
 </pre>
 
-The Multidiff sensory augmentation module is the perfect update for users who need to process large quantities of foreign data. 
-This module provides visualization both in batch and stream modes and supports several encodings and graphical backends.
-The patented color scheme shines just as bright in old ANSI based backends as it does in more modern HTML ones, but most importantly it will make the data you process shine clear as the sun in your core information processor.
-NEONSENSE modules are optimal for organic cores that naturally have a strong visual processing capability and as such this may not perform as well with synthetic cores.
+Purpose
+-------
+Multidiff is a sensory augmentation apparatus.
+It's purpose is to enable visual parsing of machine data for humans.
+Specifically, multidiff helps in viewing the differences within a large set of objects by doing diffs between relevant objects and displaying them in a sensible manner.
+This is handy when wanting to see the similarities in structure of proprietary protocols or weird file formats.
+The most obvious usecases are reverse engineering and binary data analysis.
 
-For modules licenced for enterprise use contact NEONSENSE sales department.
+Scope
+-----
+At the core of multidiff is the python difflib library and multidiff wraps it in data providing mechanisms and visualisation code.
+The visualisation is the most important part of the apparatus and everything else is just utilities to enable simpler use.
+At this time the tool can only do basic format parsing, sych as hex decoding, hexdumping and handling data as utf8 strings.
+Most of the time preprocessing such as cropping, indenting, decompression, etc. will be done by the data provider before the objects are sent to multidiff.
+
+mdcli
+-----
+The command line interface is the primary use-case for most of the code. It has a few handy options to make data collecting and displaying nice and easy.
+The help is pretty useful, and most of the arguments are quite intuitive.
+
+	mdcli.py -h
+
+### mode
+This selects the diffing strategy, currently `sequence` and `baseline` are supported.
+Sequence mode diffs every object with the object added just before it, while baseline mode always diffs the most recent object with the first object.
+
+### informat & outformat
+The `infomrat` argument controls what kind of transformations should be done to the data before it gets diffed. `outformat` controls the view of the output data.
+Informat should mostly be selected based on what is the easiest way to provide data to multidiff, while outformat should be selected based on how the content of the data is most plesantly viewed.
+
+### server
+There is an embedded tcp socket server that will listen to any packets coming to the specified port and print the diffs as more objects become available.
+The server supports json mode, in which objects are passed as json objects that may include metadata. This is useful if the client has done some analysus on the data and one would like to show those results in the view stream. The schema is pretty simple:
+
+	{
+		"data":"[data encoded as urlbase64]",
+		"info":"some useful note"
+	}

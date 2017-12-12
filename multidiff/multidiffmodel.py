@@ -9,9 +9,9 @@ class Diff():
 
 """A diffable object. Raw byte data and some metadata."""
 class DiffObject():
-	def __init__(self, data, name='', identifier=0):
+	def __init__(self, data, info='', identifier=0):
 		self.data = data
-		self.name = name
+		self.info = info
 
 class MultidiffModel():
 
@@ -26,14 +26,14 @@ class MultidiffModel():
 		self.listeners.append(listener)
 
 	"""Add a single data object to the model"""
-	def add(self, data, name=''):
-		obj = DiffObject(data, name=name)
+	def add(self, data, info=''):
+		obj = DiffObject(data, info=info)
 		self.objects.append(obj)
 		for listener in self.listeners:
 			listener.object_added(len(self.objects) - 1)
 
 	"""Add a list of byte datas"""
-	def add_all(self, datas, name=''):
+	def add_all(self, datas):
 		for data in datas:
 			self.add(data)
 		

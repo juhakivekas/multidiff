@@ -46,7 +46,7 @@ parser.add_argument('-p','--port',
 if __name__ == '__main__':
 	args = parser.parse_args()
 	m = MultidiffModel()
-	v = StreamView(m, encoding=args.outformat)
+	v = StreamView(m, encoding=args.outformat, mode=args.mode)
 	
 	if len(args.file) > 0:
 		informat = args.informat if args.informat else 'raw'
@@ -57,6 +57,6 @@ if __name__ == '__main__':
 		stdin = StdinController(m, informat)
 		stdin.read_lines()
 	if args.port:
-		informat = args.informat if args.informat else 'json'
+		informat = args.informat if args.informat else 'raw'
 		server = SocketController(('127.0.0.1', args.port), m, informat)
 		server.serve_forever()
