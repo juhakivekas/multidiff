@@ -31,7 +31,7 @@ The help is pretty useful, and most of the arguments are quite intuitive.
 
 ### --mode
 This selects the diffing strategy, currently `sequence` and `baseline` are supported.
-Sequence mode diffs every object with the object added just before it, while baseline mode always diffs the most recent object with the first object.
+Sequence mode diffs every object with the object added just before it while baseline mode always diffs the most recent object with the first object.
 
 ### --informat & --outformat
 The `infomrat` argument controls what kind of transformations should be done to the data before it gets diffed. `outformat` controls the view of the output data.
