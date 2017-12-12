@@ -15,6 +15,8 @@ Specifically multidiff helps in viewing the differences within a large set of ob
 This is handy when wanting to see the similarities in structure of proprietary protocols or weird file formats.
 The most obvious use-cases are reverse engineering and binary data analysis.
 
+![mdcli -p 8000 -i json -o hexdump](./hexdump_mode.png)
+
 Scope
 -----
 At the core of multidiff is the python difflib library and multidiff wraps it in data providing mechanisms and visualisation code.
