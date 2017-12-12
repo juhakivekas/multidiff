@@ -16,7 +16,7 @@ def test_baseline_html_utf_dump():
 	objs = [bytes(x, 'utf8') for x in objs]
 	m = MultidiffModel(objs)
 	m.diff_baseline()
-	res = Render(encode='utf8', color='html').dumps(m)
+	res = Render(encoder='utf8', color='html').dumps(m)
 	print(res)
 	base = open("test/minimal_res.html").read(-1)
 	assert res == base
