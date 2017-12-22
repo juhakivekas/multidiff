@@ -43,10 +43,17 @@ parser.add_argument('-p','--port',
 	type=int,
 	help='start a local socket server on a given port')
 
+parser.add_argument('--html',
+	dest='html',
+	action='store_const',
+	const='html',
+	default='ansi',
+	help='use html colouring instead of ansi codes')
+
 if __name__ == '__main__':
 	args = parser.parse_args()
 	m = MultidiffModel()
-	v = StreamView(m, encoding=args.outformat, mode=args.mode)
+	v = StreamView(m, encoding=args.outformat, mode=args.mode, color=args.html)
 	
 	if len(args.file) > 0:
 		informat = args.informat if args.informat else 'raw'

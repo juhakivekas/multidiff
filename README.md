@@ -47,3 +47,6 @@ The server supports a json mode in which objects are passed as json objects that
 		"data":"[data encoded as urlbase64]",
 		"info":"some useful note"
 	}
+
+Example object providers are in the `examples` directory.
+These are specific use-cases where it has been helpful to have a stream of diffs visible when inspecting traffic.

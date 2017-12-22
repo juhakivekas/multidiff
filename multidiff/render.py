@@ -133,12 +133,12 @@ def ansi_colored(string, op):
 	if   op == 'equal':
 		return string
 	elif op == 'replace':
-		color = Ansi.on_blue
+		color = Ansi.white + Ansi.on_neonb
 	elif op == 'insert':
-		color = Ansi.on_green
+		color = Ansi.black + Ansi.on_neong
 	elif op == 'delete':
-		color = Ansi.on_red
-	return Ansi.white + color + string + Ansi.reset
+		color = Ansi.on_neonr
+	return Ansi.bold + color + string + Ansi.reset
 	#return termcolor.colored(string, color, None)
 
 def html_colored(string, op):

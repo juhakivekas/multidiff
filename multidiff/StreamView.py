@@ -1,8 +1,10 @@
 from multidiff import Render, Ansi
+import html
 
 class StreamView():
-	def __init__(self, model, encoding='hexdump', mode='sequence'):
-		self.render = Render(color='ansi', encoder=encoding)
+	def __init__(self, model, encoding='hexdump', mode='sequence', color='ansi'):
+		self.color = color
+		self.render = Render(color=color, encoder=encoding)
 		self.mode = mode
 		self.model = model
 		model.add_listener(self)
@@ -13,7 +15,10 @@ class StreamView():
 
 	def diff_added(self, diff):
 		if  self.model.objects[diff.target].info != '':
-			print(Ansi.bold + self.model.objects[diff.target].info + Ansi.reset)
+			if self.color == 'ansi':
+				print(Ansi.bold + self.model.objects[diff.target].info + Ansi.reset)
+			elif self.color == 'html':
+				print('<span style="font-weight: bold;">' + html.escape(self.model.objects[diff.target].info) + '</span>')
 		print(self.render.render(self.model, diff))
 		#clean up model to not leak memory in long runs
 		del(self.model.diffs[0])
