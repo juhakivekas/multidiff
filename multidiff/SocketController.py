@@ -17,7 +17,7 @@ class MultidiffTCPHandler(socketserver.BaseRequestHandler):
 		data = self.request.recv(0x10000)
 		if   self.server.informat == 'json':
 			msg  = json.loads(str(data, 'utf8'))
-			data = base64.b64decode(msg['data'], altchars="-_")
+			data = base64.b64decode(msg['data'])
 			info = msg['info']
 		elif self.server.informat == 'raw':
 			info = ''

@@ -1,6 +1,6 @@
 foobar
-fooba[37m[44mg[0m
-[37m[44mgee[0mbar
-foo[37m[42mx[0mbar
-f[37m[41m[0mobar
-[37m[41m[0m
+fooba[1m[37m[48;5;30mg[0m
+[1m[37m[48;5;30mgee[0mbar
+foo[1m[30m[48;5;118mx[0mbar
+f[1m[48;5;197m[0mobar
+[1m[48;5;197m[0m

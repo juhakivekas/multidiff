@@ -39,7 +39,7 @@ var tamperListener = new org.zaproxy.zap.extension.websocket.WebSocketSenderList
 			direction = "\u25c0"
 		}
 		diffobj = JSON.stringify({
-			'data' : Base64.getUrlEncoder().encodeToString(getData(message)),
+			'data' : Base64.getEncoder().encodeToString(getData(message)),
 			'info' : direction + ' ' + channelId + '.' + message.getMessageId()
 		})
 		diffsocket = new Socket("localhost", 8000)

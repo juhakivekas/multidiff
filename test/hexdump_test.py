@@ -1,4 +1,4 @@
-from multidiff.render import *
+from multidiff.Render import *
 from multidiff import Ansi
 
 def mono(string, color):
@@ -25,9 +25,9 @@ def test_single_line_insert():
 	result = hd.final()
 	print(result)
 	dump = '000000: '
-	dump+= Ansi.white + Ansi.on_green + '66 6f 6f 62 61 72' + Ansi.reset
+	dump+= Ansi.insert + '66 6f 6f 62 61 72' + Ansi.reset
 	dump+= '                               |'
-	dump+= Ansi.white + Ansi.on_green + 'foobar' + Ansi.reset
+	dump+= Ansi.insert + 'foobar' + Ansi.reset
 	dump+= '          |'
 	assert(result == dump)
 
@@ -38,13 +38,13 @@ def test_multiple_line_insert():
 	result = hd.final()
 	#jesus!
 	dump = '000000: 30 31 32 33 34 35 36 37 38 61 '
-	dump += Ansi.white + Ansi.on_blue + '30 31 32 33 34 35' + Ansi.reset
+	dump += Ansi.replace + '30 31 32 33 34 35' + Ansi.reset
 	dump += ' |012345678a'
-	dump += Ansi.white + Ansi.on_blue + '012345' + Ansi.reset
+	dump += Ansi.replace + '012345' + Ansi.reset
 	dump += '|\n000010: '
-	dump += Ansi.white + Ansi.on_blue + '36 37 38 61' + Ansi.reset
+	dump += Ansi.replace + '36 37 38 61' + Ansi.reset
 	dump += '                                     |'
-	dump += Ansi.white + Ansi.on_blue + '678a' + Ansi.reset
+	dump += Ansi.replace + '678a' + Ansi.reset
 	dump += '            |'
 	assert(result == dump)
 
@@ -55,9 +55,9 @@ def test_empty_data_insert():
 	result = hd.final()
 	print(result)
 	dump = '000000: '
-	dump += Ansi.white + Ansi.on_blue + '41' + Ansi.reset
-	dump += Ansi.white + Ansi.on_red + ' ' + Ansi.reset
+	dump += Ansi.replace + '41' + Ansi.reset
+	dump += Ansi.delete + ' ' + Ansi.reset
 	dump += '                                             |'
-	dump += Ansi.white + Ansi.on_blue + 'A' + Ansi.reset
+	dump += Ansi.replace + 'A' + Ansi.reset
 	dump += '               |'
 	assert(result == dump)
