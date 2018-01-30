@@ -1,3 +1,9 @@
+// Usage:
+// Add script as Extender scipt in ZAP and enable it
+// Edit the channelSelector function to include your target traffic
+//   python3 mdcli.py -i json -p 8000
+// point your browser to ZAP and open some websocket application
+
 var Socket = Java.type("java.net.Socket")
 var Base64 = Java.type("java.util.Base64")
 
@@ -21,7 +27,8 @@ function getData(message){
 	//return message.getPayload()
 }
 
-/* support functions follow */
+/**** support functions follow *****/
+
 /**
  * ECMA implementation of WebSocketSenderListener that sends WebSocket messages to the multidiff server
  */

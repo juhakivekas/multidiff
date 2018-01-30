@@ -1,33 +1,23 @@
-<pre>
-<b>N E O N S E N S E</b>
-augmentations inc 
-┌───────────────┐
-│<b> M  U  L  T  I </b>│
-│<b> D   I   F   F </b>│
-│ sensor module │
-└───────────────┘
-</pre>
-Purpose
--------
-Multidiff is a sensory augmentation apparatus.
-It's purpose is to enable visual parsing of machine data for humans.
+`M U L T I D I F F`
+===================
+
+> Multidiff is a sensory augmentation apparatus
+
+It's purpose is to make machine friendly data easier to understand by humans that are looking at it.
 Specifically multidiff helps in viewing the differences within a large set of objects by doing diffs between relevant objects and displaying them in a sensible manner.
-This is handy when wanting to see the similarities in structure of proprietary protocols or weird file formats.
-The most obvious use-cases are reverse engineering and binary data analysis.
+This kind of visualization is handy when looking for patterns and structure in proprietary protocols or weird file formats.
+The obvious use-cases are reverse engineering and binary data analysis.
 
 ![mdcli -p 8000 -i json -o hexdump](./hexdump_mode.png)
 
-Scope
------
-At the core of multidiff is the python difflib library and multidiff wraps it in data providing mechanisms and visualisation code.
-The visualization is the most important part of the apparatus and everything else is just utilities to enable simpler use.
-At this time the tool can only do basic format parsing such as hex decoding, hexdumping, and handling data as utf8 strings.
-Most of the time preprocessing such as cropping, indenting, decompression, etc. will be done by the data provider before the objects are sent to multidiff.
+At the core of multidiff is the python difflib library and multidiff wraps it in data providing mechanisms and visualization code.
+The visualization is the most important part of the project and everything else is just utilities to make it easier to feed data for the visualizer.
+At this time the tool can do basic format parsing such as hex decoding, hexdumping, and handling data as utf8 strings, as well as read from files, stdin, and sockets.
+Any preprocessing such as cropping, indenting, decompression, etc. will have be done by the user before the objects are provided to multidiff.
 
-mdcli
+mdcli.py
 -----
-The command line interface is the primary use-case for most of the code. It has a few handy options to make data collecting and displaying nice and easy.
-The help is pretty useful and most of the arguments are quite intuitive.
+The command line interface is the easiest way to use multidiff and it supports a few common use-cases.
 
 	mdcli.py -h
 
@@ -40,13 +30,31 @@ The `infomrat` argument controls what kind of transformations should be done to 
 `informat` should mostly be selected based on what is the easiest way to provide data to multidiff while `outformat` should be selected based on how the content of the data is most pleasantly viewed.
 
 ### --port
-There is an embedded tcp socket server that will listen to any packets coming to the specified port and print the diffs as more objects become available.
+There is an embedded tcp socket server that will listen to any packets coming to the specified port and print the diffs as more objects are sent to it.
 The server supports a json mode in which objects are passed as json objects that may include metadata. This is useful if the client has done some analysis on the data and one would like to show those results in the view stream. The schema is pretty simple:
 
 	{
-		"data":"[data encoded as urlbase64]",
+		"data":"[data encoded as base64]",
 		"info":"some useful note"
 	}
 
 Example object providers are in the `examples` directory.
 These are specific use-cases where it has been helpful to have a stream of diffs visible when inspecting traffic.
+
+Examples
+--------
+
+Check how much your shell history repeats:
+
+	history | ./mdcli.py -s -o utf8
+	
+Diff a bunch of files and scroll through the results:
+
+	mdcli.py interesting_file.bin folder_with_similar_files/ | less -r
+
+Start a multidiff server, then send objects to it:
+
+	mdcli.py -p 8000
+	echo "interesting" | nc 127.0.0.1 8000
+	echo "intersectional" | nc 127.0.0.1 8000
+

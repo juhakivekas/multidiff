@@ -1,3 +1,8 @@
+# Usage:
+#   mitmdump -s "mitmproxy_websocket_multidiff_provider.py 8000"
+#   python3 mdcli.py -i json -p 8000
+# point your browser to mitmdump and open some websocket application
+
 import binascii
 import socket
 from base64 import b64encode
