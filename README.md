@@ -58,3 +58,6 @@ Start a multidiff server, then send objects to it:
 	echo "interesting" | nc 127.0.0.1 8000
 	echo "intersectional" | nc 127.0.0.1 8000
 
+Contributions
+-------------
+Pull requests are welcome, and please raise an issue if something is broken or if you can think of a cool feature. I can be reached as "stilla" on Protonmail.
