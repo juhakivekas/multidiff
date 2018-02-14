@@ -8,18 +8,19 @@ Specifically multidiff helps in viewing the differences within a large set of ob
 This kind of visualization is handy when looking for patterns and structure in proprietary protocols or weird file formats.
 The obvious use-cases are reverse engineering and binary data analysis.
 
-![mdcli -p 8000 -i json -o hexdump](./hexdump_mode.png)
+![multidiff -p 8000 -i json -o hexdump](./hexdump_stream_mode.png)
 
 At the core of multidiff is the python difflib library and multidiff wraps it in data providing mechanisms and visualization code.
 The visualization is the most important part of the project and everything else is just utilities to make it easier to feed data for the visualizer.
 At this time the tool can do basic format parsing such as hex decoding, hexdumping, and handling data as utf8 strings, as well as read from files, stdin, and sockets.
 Any preprocessing such as cropping, indenting, decompression, etc. will have be done by the user before the objects are provided to multidiff.
 
-mdcli.py
------
-The command line interface is the easiest way to use multidiff and it supports a few common use-cases.
+Command-line interface
+----------------------
+The command line interface is the easiest way to use multidiff. It supports a few common use-cases and is installed by the setup script.
 
-	mdcli.py -h
+	python3 setup.py install
+	multidiff -h
 
 ### --mode
 This selects the diffing strategy, currently `sequence` and `baseline` are supported.
@@ -46,15 +47,15 @@ Examples
 
 Check how much your shell history repeats:
 
-	history | ./mdcli.py -s -o utf8
+	history | multidiff -s -o utf8
 	
 Diff a bunch of files and scroll through the results:
 
-	mdcli.py interesting_file.bin folder_with_similar_files/ | less -r
+	multidiff interesting_file.bin folder_with_similar_files/ | less -r
 
 Start a multidiff server, then send objects to it:
 
-	mdcli.py -p 8000
+	multidiff -p 8000
 	echo "interesting" | nc 127.0.0.1 8000
 	echo "intersectional" | nc 127.0.0.1 8000
 

@@ -10,7 +10,7 @@
 #     continue
 # end
 #
-# ./mdcli.py -i json -p 53759
+# multidiff -i json -p 53759
 
 from base64 import b64encode
 import socket
