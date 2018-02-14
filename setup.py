@@ -3,7 +3,7 @@ from setuptools import setup
 
 setup(
     name='multidiff',
-    version='1.0',
+    version='0.1',
     description='Binary data diffing for multiple objects or streams of data',
     url='https://github.com/juhakivekas/multidiff',
     author='Juha Kivekäs',
