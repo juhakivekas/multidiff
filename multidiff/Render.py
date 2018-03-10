@@ -3,8 +3,8 @@ import binascii
 import html
 
 class Render():
-	'''Configure the output encoding and coloring method of this rendering object'''
 	def __init__(self, encoder='hexdump', color='ansi'):
+		'''Configure the output encoding and coloring method of this rendering object'''
 		if   color == 'ansi':
 			self.highligther = ansi_colored
 		elif color == 'html':
@@ -17,8 +17,8 @@ class Render():
 		elif encoder == 'utf8':
 			self.encoder = Utf8Encoder
 			
-	'''Render the diff in the given model into a UTF-8 String'''
 	def render(self, model, diff):
+		'''Render the diff in the given model into a UTF-8 String'''
 		result = self.encoder(self.highligther)
 		obj = model.objects[diff.target]
 		for op in diff.opcodes:
@@ -29,15 +29,15 @@ class Render():
 				result.append(bytes(data, "utf8"), op[0])
 		return result.final()
 
-	'''Dump all diffs in a model. Mostly good for debugging'''
 	def dumps(self, model):
+		'''Dump all diffs in a model. Mostly good for debugging'''
 		dump = ""
 		for diff in model.diffs:
 			dump += self.render(model, diff) + '\n'
 		return dump
 
-'''A string (utf8) encoder for the data'''
 class Utf8Encoder():
+	'''A string (utf8) encoder for the data'''
 	def __init__(self, highligther):
 		self.highligther = highligther
 		self.output = ''
@@ -48,8 +48,8 @@ class Utf8Encoder():
 	def final(self):
 		return self.output
 
-'''A hex encoder for the data'''
 class HexEncoder():
+	'''A hex encoder for the data'''
 	def __init__(self, highligther):
 		self.highligther = highligther
 		self.output = ''
@@ -60,8 +60,8 @@ class HexEncoder():
 	def final(self):
 		return self.output
 
-'''A hexdump encoder for the data'''
 class HexdumpEncoder():
+	'''A hexdump encoder for the data'''
 	def __init__(self, highligther):
 		self.highligther = highligther
 		self.body = ''
