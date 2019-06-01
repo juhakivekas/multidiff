@@ -4,11 +4,12 @@ import html
 class StreamView():
 	'''A class for building UIs. Has some pretty serious side effects.
 	Use Render instead if you're not making a long-running UI'''
-	def __init__(self, model, encoding='hexdump', mode='sequence', color='ansi'):
+	def __init__(self, model, encoding='hexdump', mode='sequence', color='ansi', bytes=16, width=None):
 		self.color = color
-		self.render = Render(color=color, encoder=encoding)
+		self.render = Render(color=color, encoder=encoding, bytes=bytes, width=width)
 		self.mode = mode
 		self.model = model
+		self.bytes = bytes
 		model.add_listener(self)
 
 	def object_added(self, index):
