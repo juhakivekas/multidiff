@@ -71,5 +71,5 @@ class MultidiffModel():
 		self.diff(0, len(self.objects) - 1)
 
 	def diff_first_to_last(self):
-		"""Diff the most recently added objecy with the first one"""
+		"""Diff the most recently added object with the first one"""
 		self.diff(len(self.objects) - 2, len(self.objects) - 1)
