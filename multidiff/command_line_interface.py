@@ -23,6 +23,7 @@ def main(args=None):
 		informat = args.informat if args.informat else 'raw'
 		files = FileController(m, informat)
 		files.add_paths(args.file)
+		return v.differ
 	if args.stdin:
 		informat = args.informat if args.informat else 'utf8'
 		stdin = StdinController(m, informat)

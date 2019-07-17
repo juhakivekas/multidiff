@@ -11,6 +11,7 @@ class StreamView():
 		self.model = model
 		self.bytes = bytes
 		self.diff = diff
+		self.differ = None
 		model.add_listener(self)
 
 	def object_added(self, index):
@@ -24,9 +25,9 @@ class StreamView():
 			elif self.color == 'html':
 				print('<span style="font-weight: bold;">' + html.escape(self.model.objects[diff.target].info) + '</span>')
 		if self.diff:
-			print(self.render.diff_render(self.model, diff))
+			self.differ = self.render.diff_render(self.model, diff)
 		else:
-			print(self.render.render(self.model, diff))
+			self.differ = self.render.render(self.model, diff)
 		#StreamView is designed to run for long times so we delete
 		#old objects and diffs to not leak memory
 		del(self.model.diffs[0])

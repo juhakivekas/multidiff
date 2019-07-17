@@ -231,7 +231,7 @@ class HexdumpEncoder():
 				ops = ansi
 			for op in ops:
 				res = res.replace(op, "")
-			res = res.replace(" ", "")
+			res = res.replace(" ", "").strip()
 			res = str(binascii.unhexlify(res), 'utf8')
 			res = res.encode('utf-8')
 			#make the ascii dump
