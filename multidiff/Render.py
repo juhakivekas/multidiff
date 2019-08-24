@@ -21,6 +21,7 @@ class Render():
 
 		self.width = width
 		self.bytes = bytes
+		self.stats = []
 
 	def render(self, model, diff):
 		'''Render the diff in the given model into a UTF-8 String'''
@@ -33,6 +34,8 @@ class Render():
 				result.append(data, op[0], self.width, self.bytes, data2)
 			elif type(data) == str:
 				result.append(bytes(data, "utf8"), op[0], self.width, self.bytes, bytes(data2, "utf8"))
+		if result.additions or result.deletions:
+			self.stats = [result.additions, result.deletions]
 		if self.bytes != 16:
 			return result.reformat(result.final(data2), int(self.bytes))
 		return result.final(data2)
@@ -49,6 +52,8 @@ class Render():
 				result.append(data1, op[0], self.width, self.bytes, data2)
 			elif type(data2) == str:
 				result.append(bytes(data1, "utf8"), op[0], self.width, self.bytes, bytes(data2, "utf8"))
+		if result.additions or result.deletions:
+			self.stats = [result.additions, result.deletions]
 		if self.bytes != 16:
 			return result.reformat(result.final(data2), int(self.bytes))
 		return result.final(data2).rstrip()
@@ -65,6 +70,8 @@ class Utf8Encoder():
 	def __init__(self, highligther):
 		self.highligther = highligther
 		self.output = ''
+		self.additions = 0
+		self.deletions = 0
 
 	def append(self, data, color, width=None, bytes=16, data2=""):
 		self.output += self.highligther(str(data, 'utf8'), color)
@@ -80,6 +87,8 @@ class HexEncoder():
 	def __init__(self, highligther):
 		self.highligther = highligther
 		self.output = ''
+		self.additions = 0
+		self.deletions = 0
 
 	def append(self, data, color, width=None, bytes=16, data2=""):
 		data = str(binascii.hexlify(data),'utf8')
@@ -101,6 +110,8 @@ class HexdumpEncoder():
 		self.hexrow = ''
 		self.skipspace = False
 		self.asciirow = ''
+		self.additions = 0
+		self.deletions = 0
 
 	def append(self, data, color, width=None, bytes=16, data2=""):
 		if data2 == "":
@@ -120,6 +131,15 @@ class HexdumpEncoder():
 					self._newrow(data2)
 				consumed = self._append(data1[:16 - self.rowlen], color, width, data2[:16 - self.rowlen],)
 				data2 = data2[consumed:]
+
+	def stats(self, string, op, string2):
+		if op == 'insert':
+			self.additions += len(string.split())
+		if op == 'delete':
+			self.deletions += len(string.split())
+		if op == 'replace':
+			self.additions += len(string.split())
+			self.deletions += len(string2.split())
 
 	def _append(self, data, color, width, data2):
 		if data2 == "":
@@ -155,13 +175,18 @@ class HexdumpEncoder():
 			if len(data2) == 0:
 				hexs = str(binascii.hexlify(data1), 'utf8')
 				hexs = ' '.join([hexs[i:i+2] for i in range(0, len(hexs), 2)])
+				hexs2 = str(binascii.hexlify(data2), 'utf8')
+				hexs2 = ' '.join([hexs[i:i+2] for i in range(0, len(hexs), 2)])
 			else:
 				self._add_hex_space()
 				#encode to hex and add some spaces
 				hexs = str(binascii.hexlify(data2), 'utf8')
 				hexs = ' '.join([hexs[i:i+2] for i in range(0, len(hexs), 2)])
+				hexs2 = str(binascii.hexlify(data), 'utf8')
+				hexs2 = ' '.join([hexs[i:i+2] for i in range(0, len(hexs), 2)])
 
 			self.hexrow += self.highligther(hexs, color)
+			self.stats(hexs, color, hexs2)
 			if width:
 				if len(self.hexrow) > int(width):
 					self.hexrow = textwrap.fill(self.hexrow, int(width))

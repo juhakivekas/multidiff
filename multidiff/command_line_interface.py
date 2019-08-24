@@ -11,19 +11,9 @@ def main(args=None):
 	args = make_parser().parse_args(args)
 	m = MultidiffModel()
 
-	if args.bytes != 16:
-		args.width = 'max'
-
-	if args.width == 'max':
-		args.width = get_max_width(args)
-
-	v = StreamView(m, encoding=args.outformat, mode=args.mode, color=args.color, bytes=args.bytes, width=args.width, diff=args.diff)
-
 	if len(args.file) > 0:
-		informat = args.informat if args.informat else 'raw'
-		files = FileController(m, informat)
-		files.add_paths(args.file)
-		return v.differ
+		result = diff_files(args)
+		print(result)
 	if args.stdin:
 		informat = args.informat if args.informat else 'utf8'
 		stdin = StdinController(m, informat)
@@ -32,6 +22,20 @@ def main(args=None):
 		informat = args.informat if args.informat else 'raw'
 		server = SocketController(('127.0.0.1', args.port), m, informat)
 		server.serve_forever()
+
+def diff_files(args):
+	m = MultidiffModel()
+	v = StreamView(m, encoding=args.outformat, mode=args.mode, color=args.color, bytes=args.bytes, width=args.width, diff=args.diff)
+
+	if args.width == 'max':
+		args.width = get_max_width(args)
+
+	informat = args.informat if args.informat else 'raw'
+	files = FileController(m, informat)
+	files.add_paths(args.file)
+	if v.stats:
+		print('{} additions, {} deletions'.format(v.stats[0], v.stats[1]))
+	return v.differ
 
 def get_max_width(args):
 	columns = int(shutil.get_terminal_size((120,30)).columns)

@@ -12,6 +12,7 @@ class StreamView():
 		self.bytes = bytes
 		self.diff = diff
 		self.differ = None
+		self.stats = [0, 0]
 		model.add_listener(self)
 
 	def object_added(self, index):
@@ -28,6 +29,7 @@ class StreamView():
 			self.differ = self.render.diff_render(self.model, diff)
 		else:
 			self.differ = self.render.render(self.model, diff)
+		self.stats = self.render.stats
 		#StreamView is designed to run for long times so we delete
 		#old objects and diffs to not leak memory
 		del(self.model.diffs[0])

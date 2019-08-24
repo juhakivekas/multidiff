@@ -15,7 +15,7 @@ class WidthTests(TestCase):
     def test_parser(self):
         args = make_parser().parse_args([])
         res = argparse.Namespace(
-            bytes=16, color='ansi', file=[], informat=None,
+            bytes=16, color='ansi', diff=False, file=[], informat=None,
             mode='sequence', outformat='hexdump', port=None, stdin=False,
             width='82'
         )
