@@ -3,7 +3,7 @@
 
 > Multidiff is a sensory augmentation apparatus
 
-It's purpose is to make machine friendly data easier to understand by humans that are looking at it.
+Its purpose is to make machine friendly data easier to understand by humans that are looking at it.
 Specifically multidiff helps in viewing the differences within a large set of objects by doing diffs between relevant objects and displaying them in a sensible manner.
 This kind of visualization is handy when looking for patterns and structure in proprietary protocols or weird file formats.
 The obvious use-cases are reverse engineering and binary data analysis.
