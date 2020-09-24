@@ -4,6 +4,6 @@ python:
   - 3.5
   - 3.4.2
 install:
-  - pip install git+https://github.com/juhakivekas/multidiff
+  - pip install .
 script:
   - python -m pytest
