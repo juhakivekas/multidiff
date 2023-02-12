@@ -28,14 +28,21 @@ Installation Guide
 ----------------------
 Before you begin Installing multidiff. Please ensure you have python and the pip manager installed.
 To check the current version of python in your system you can type the following command on the CLI.
+
 	python3 --version
+
 To check the current version of pip in your system you can type in the following command on the CLI.
+
 	pip --version
+
 multidiff can be installed on your system using the following command on the CLI.
+
 	pip install multidiff
+
 multidiff is also dependent on other Python scientific modules such as numpy, scipy and matplotlib. 
 These modules can be installed separately, or using a bundled distribution such as Anaconda or Canopy.
 To use this with Anaconda, open the "Anaconda Prompt" and type in the following:
+
 	conda install pip
 
 <a name="CLI"></a>
