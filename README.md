@@ -108,7 +108,7 @@ This section berfiely goes over the ways you can contribute.
 * **Use a clear and descriptive title.** for the issue to idenfity the problem.
 *  **Desribe the exact steps you took** to find the problem.
 *  **Include screen shots** of error messages and explain what you expected insted.
-#### Submiting a feature report
+#### Submiting a feature request
 * **Use a clear and descriptive title.** for the feature you want to add.
 * **Desribe the exact steps you took** to add the feature.
 * **Explain** what are the benfits of the feature.
