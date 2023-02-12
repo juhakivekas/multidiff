@@ -1,3 +1,4 @@
+# Table of Contents
 1. [ MULTIDIFF. ](#desc)
 2. [ Installation Guide. ](#instal)
 3. [Command-line interface](#CLI)
