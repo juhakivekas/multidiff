@@ -42,6 +42,7 @@ multidiff can be installed on your system using the following command on the CLI
 
 multidiff is also dependent on other Python scientific modules such as numpy, scipy and matplotlib. 
 These modules can be installed separately, or using a bundled distribution such as Anaconda or Canopy.
+
 To use this with Anaconda, open the "Anaconda Prompt" and type in the following:
 
 	conda install pip
