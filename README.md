@@ -27,9 +27,9 @@ Any preprocessing such as cropping, indenting, decompression, etc. will have be 
 Installation Guide
 ----------------------
 Before you begin Installing multidiff. Please ensure you have python and the pip manager installed.
-To check the current version of python in your system you can type in on the CLI.
+To check the current version of python in your system you can type the following command on the CLI.
 	python3 --version
-To check the current version of pip in your system you can type in on the CLI.
+To check the current version of pip in your system you can type in the following command on the CLI.
 	pip --version
 multidiff can be installed on your system using the following command on the CLI.
 	pip install multidiff
@@ -92,7 +92,7 @@ The following is a set of guidelines for contributing to multidiff.
 Code of Conduct
 Please participate and uphold respect for fellow contributors. Please report unacceptable behaviour.
 ### How can I contribute ?
-This sectionn berfiely goes over the ways you can contribute.
+This section berfiely goes over the ways you can contribute.
 #### Before submiting a bug report or adding a new feature.
 * **make sure you have the latest verion** of multidiff by fetching the latest version of the repo
 #### Submiting a bug report
