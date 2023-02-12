@@ -1,3 +1,10 @@
+1. [ MULTIDIFF. ](#desc)
+2. [ Installation Guide. ](#instal)
+3. [Command-line interface](#CLI)
+4. [Examples](#Exam)
+5. [Contributions](#Contri)
+
+<a name="desc"></a>
 `M U L T I D I F F`
 ===================
 
@@ -15,6 +22,22 @@ The visualization is the most important part of the project and everything else 
 At this time the tool can do basic format parsing such as hex decoding, hexdumping, and handling data as utf8 strings, as well as read from files, stdin, and sockets.
 Any preprocessing such as cropping, indenting, decompression, etc. will have be done by the user before the objects are provided to multidiff.
 
+<a name="instal"></a>
+Installation Guide
+----------------------
+Before you begin Installing multidiff. Please ensure you have python and the pip manager installed.
+To check the current version of python in your system you can type in on the CLI.
+	python3 --version
+To check the current version of pip in your system you can type in on the CLI.
+	pip --version
+multidiff can be installed on your system using the following command on the CLI.
+	pip install multidiff
+multidiff is also dependent on other Python scientific modules such as numpy, scipy and matplotlib. 
+These modules can be installed separately, or using a bundled distribution such as Anaconda or Canopy.
+To use this with Anaconda, open the "Anaconda Prompt" and type in the following:
+	conda install pip
+
+<a name="CLI"></a>
 Command-line interface
 ----------------------
 The command line interface is the easiest way to use multidiff. It supports a few common use-cases and is installed by the setup script.
@@ -42,6 +65,7 @@ The server supports a json mode in which objects are passed as json objects that
 Example object providers are in the `examples` directory.
 These are specific use-cases where it has been helpful to have a stream of diffs visible when inspecting traffic.
 
+<a name="Exam"></a>
 Examples
 --------
 
@@ -59,6 +83,8 @@ Start a multidiff server, then send objects to it:
 	echo "interesting" | nc 127.0.0.1 8000
 	echo "intersectional" | nc 127.0.0.1 8000
 
+<a name="Contri"></a>
 Contributions
 -------------
+
 Pull requests are welcome, and please raise an issue if something is broken or if you can think of a cool feature. I can be reached as "stilla" on Protonmail.
