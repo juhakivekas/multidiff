@@ -103,5 +103,5 @@ This sectionn berfiely goes over the ways you can contribute.
 * **Use a clear and descriptive title.** for the feature you want to add.
 * **Desribe the exact steps you took** to add the feature.
 * **Explain** what are the benfits of the feature.
-Pull requests are always welcomed, and please raise an issue if something is broken or if you can think of a cool feature. I can be reached as "stilla" on Protonmail.
-
+#### Pull requests 
+Pull requests are always welcomed, please feel free to raise a reueqst when you are compeleted with adding a feature or see a bug. I can be reached as "stilla" on Protonmail.
