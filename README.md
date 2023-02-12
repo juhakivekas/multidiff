@@ -27,6 +27,7 @@ Any preprocessing such as cropping, indenting, decompression, etc. will have be 
 Installation Guide
 ----------------------
 Before you begin Installing multidiff. Please ensure you have python and the pip manager installed.
+
 To check the current version of python in your system you can type the following command on the CLI.
 
 	python3 --version
