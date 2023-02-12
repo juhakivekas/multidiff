@@ -87,5 +87,21 @@ Start a multidiff server, then send objects to it:
 <a name="Contri"></a>
 Contributions
 -------------
+👍🎉 First off, thanks for taking the time to contribute! 🎉👍
+The following is a set of guidelines for contributing to multidiff.
+Code of Conduct
+Please participate and uphold respect for fellow contributors. Please report unacceptable behaviour.
+### How can I contribute ?
+This sectionn berfiely goes over the ways you can contribute.
+#### Before submiting a bug report or adding a new feature.
+* **make sure you have the latest verion** of multidiff by fetching the latest version of the repo
+#### Submiting a bug report
+* **Use a clear and descriptive title.*** for the issue to idenfity the problem.
+*  **Desribe the exact steps you took** to find the problem.
+*  **Include screen shots** of error messages and explain what you expected insted.
+#### Submiting a feature report
+* **Use a clear and descriptive title.** for the feature you want to add.
+* **Desribe the exact steps you took** to add the feature.
+* **Explain** what are the benfits of the feature.
+Pull requests are always welcomed, and please raise an issue if something is broken or if you can think of a cool feature. I can be reached as "stilla" on Protonmail.
 
-Pull requests are welcome, and please raise an issue if something is broken or if you can think of a cool feature. I can be reached as "stilla" on Protonmail.
