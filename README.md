@@ -96,7 +96,7 @@ This section berfiely goes over the ways you can contribute.
 #### Before submiting a bug report or adding a new feature.
 * **make sure you have the latest verion** of multidiff by fetching the latest version of the repo
 #### Submiting a bug report
-* **Use a clear and descriptive title.*** for the issue to idenfity the problem.
+* **Use a clear and descriptive title.** for the issue to idenfity the problem.
 *  **Desribe the exact steps you took** to find the problem.
 *  **Include screen shots** of error messages and explain what you expected insted.
 #### Submiting a feature report
